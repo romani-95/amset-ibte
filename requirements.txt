@@ -1,0 +1,20 @@
+# Tested versions (Python 3.11). The conda route (environment.yml) is recommended:
+# BoltzTraP2 from pip must be compiled (needs cmake and a C++ compiler).
+numpy==1.26.4
+scipy==1.13.1
+pymatgen==2024.11.13
+spglib==2.6.0
+BoltzTraP2==25.3.1
+numba==0.60.0
+interpolation==2.2.7
+h5py
+pyFFTW
+matplotlib
+monty
+click
+sumo==2.3.12
+tabulate
+tqdm
+memory_profiler
+setuptools<70
+pytest

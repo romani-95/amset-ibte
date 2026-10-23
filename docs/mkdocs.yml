@@ -1,0 +1,52 @@
+site_name: AMSET Documentation
+site_description: Documentation for AMSET, electron transport from first principles
+copyright: Built by the HackingMaterials group
+
+theme:
+  name: 'material'
+  icon:
+    logo: material/call-missed
+    repo: fontawesome/brands/git-alt
+  custom_dir: theme/overrides
+
+nav:
+  - Introduction: index.md
+  - Installation: installation.md
+  - Getting Started: using.md
+  - Calculation Inputs: inputs.md
+  - Settings: settings.md
+  - Scattering Rates: scattering.md
+  - Transport Properties: transport-properties.md
+  - About:
+    - Changelog: changelog.md
+    - Contributors: contributors.md
+    - Contributing: contributing.md
+    - License: license.md
+
+repo_url: https://github.com/hackingmaterials/amset/
+docs_dir: src
+markdown_extensions:
+  - admonition
+  - codehilite
+  - attr_list
+  - footnotes
+  - markdown_include.include:
+      base_path: "."
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - markdown_katex:
+      no_inline_svg: True
+      insert_fonts_css: True
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+  - minify
+  - macros:
+      include_yaml:
+          - ../amset/defaults.yaml
+
+extra_css:
+  - stylesheets/colors.css

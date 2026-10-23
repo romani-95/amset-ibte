@@ -1,0 +1,88 @@
+from setuptools import find_packages, setup
+
+from amset import __version__
+
+with open("README.md", "r") as file:
+    long_description = file.read()
+
+if __name__ == "__main__":
+    setup(
+        name="amset",
+        version=__version__,
+        description="AMSET is a tool to calculate carrier transport properties "
+        "from ab initio calculation data",
+        long_description=long_description,
+        long_description_content_type="text/markdown",
+        url="https://github.com/hackingmaterials/amset",
+        author="Alex Ganose",
+        author_email="a.ganose@imperial.ac.uk",
+        license="modified BSD",
+        keywords="mobility conductivity seebeck scattering lifetime rates dft vasp",
+        packages=find_packages(),
+        package_data={
+            "amset": [
+                "defaults.yaml",
+                "interpolation/quad.json",
+                "plot/amset_base.mplstyle",
+                "plot/revtex.mplstyle",
+            ]
+        },
+        data_files=["LICENSE"],
+        zip_safe=False,
+        install_requires=[
+            # AMSET uses np.Inf / np.trapz (removed in NumPy 2) and
+            # `from spglib import spglib` (removed after spglib 2.6)
+            "numpy<2",
+            "spglib<2.7",
+            "setuptools<70",  # pkg_resources (amset.constants, interpolation.quad)
+            "pymatgen>=2022.0.16",
+            "scipy",
+            "monty",
+            "matplotlib",
+            "BoltzTraP2",
+            "tqdm",
+            "tabulate",
+            "memory_profiler",
+            "click",
+            "sumo",
+            "h5py",
+            "pyFFTW",
+            "interpolation",
+            "numba",
+        ],
+        setup_requires=[
+            "numpy",
+        ],
+        extras_require={
+            "docs": [
+                "mkdocs==1.6.1",
+                "mkdocs-material==9.6.21",
+                "mkdocs-minify-plugin==0.8.0",
+                "mkdocs-macros-plugin==1.4.0",
+                "markdown-include==0.8.1",
+                "markdown-katex==202406.1035",
+            ],
+            "tests": ["pytest==8.4.2", "pytest-cov==7.0.0"],
+            "all-electron": ["pawpyseed==0.7.1"],
+            "dev": ["pre-commit==4.3.0"],
+        },
+        python_requires=">=3.9",
+        classifiers=[
+            "Programming Language :: Python :: 3.9",
+            "Programming Language :: Python :: 3.10",
+            "Programming Language :: Python :: 3.11",
+            "Development Status :: 4 - Beta",
+            "Intended Audience :: Science/Research",
+            "Intended Audience :: System Administrators",
+            "Intended Audience :: Information Technology",
+            "Operating System :: OS Independent",
+            "Topic :: Other/Nonlisted Topic",
+            "Topic :: Scientific/Engineering",
+        ],
+        tests_require=["pytest"],
+        entry_points={
+            "console_scripts": [
+                "amset = amset.tools.cli:cli",
+            ]
+        },
+    )

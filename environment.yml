@@ -1,0 +1,35 @@
+# Conda environment for AMSET-IBTE (tested on Linux, Python 3.11).
+#
+#   conda env create -f environment.yml      # from the repository root
+#   conda activate amset-ibte
+#
+# Pins: numpy < 2 (upstream AMSET uses np.Inf / np.trapz), spglib 2.6
+# (`from spglib import spglib`), setuptools < 70 (pkg_resources). BoltzTraP2 comes
+# from conda-forge (the pip build needs cmake and a C++ compiler). See INSTALL.md.
+name: amset-ibte
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.11
+  - numpy=1.26
+  - scipy=1.13
+  - spglib=2.6.0
+  - boltztrap2=25.3.1
+  - pymatgen=2024.11.13
+  - numba=0.60
+  - interpolation=2.2.7
+  - h5py
+  - pyfftw
+  - matplotlib-base
+  - monty
+  - click
+  - sumo=2.3.12
+  - tabulate
+  - tqdm
+  - memory_profiler
+  - setuptools<70
+  - pytest
+  - pip
+  - pip:
+      - -e .
