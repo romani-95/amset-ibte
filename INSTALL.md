@@ -1,19 +1,39 @@
 # Installing AMSET-IBTE (laptop or cluster)
 
-## Conda (recommended)
+## Conda, from the lock file (recommended, Linux x86-64)
 
 ```bash
 git clone <your-repo-url> amset-ibte
 cd amset-ibte
+conda create -n amset-ibte --file conda-linux-64.lock   # exact tested packages, no solving
+conda activate amset-ibte
+pip install --no-deps -e .                              # AMSET-IBTE itself, editable
+```
+
+`conda-linux-64.lock` lists the exact conda-forge packages of the tested
+environment (all tests pass with it). conda only downloads and installs them: no
+dependency solving. That takes about 30 s and under 200 MB of memory, so it also
+works on login nodes. The package is installed in editable mode, so a `git pull`
+updates it without reinstalling.
+
+To put the environment outside your home: `conda create -p $WORK/envs/amset-ibte
+--file conda-linux-64.lock`, then `conda activate $WORK/envs/amset-ibte`.
+
+## Conda, from environment.yml (solves the dependencies)
+
+```bash
 conda env create -f environment.yml      # creates "amset-ibte", installs this repo with pip -e
 conda activate amset-ibte
 ```
 
-Takes ~2 minutes. Everything comes from conda-forge, including a pre-built
-BoltzTraP2. The package is installed in editable mode, so a `git pull` updates it
-without reinstalling.
+Use this on other platforms, or to get newer builds within the same pins.
+Solving needs a lot of memory with conda's classic solver. If it stops with
+`Killed` (login-node memory limit), use the lock file above, or:
 
-If your cluster's conda is old, `mamba env create -f environment.yml` is faster.
+- add `--solver=libmamba` (conda ≥ 22.11), or use `mamba env create -f environment.yml`;
+- or create the environment inside an interactive job with more memory
+  (`srun --mem=16G --pty bash`).
+
 Load an Anaconda/Miniforge module first if needed (e.g. `module load Miniforge3`).
 
 ## Check the installation
